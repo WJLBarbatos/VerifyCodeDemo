@@ -56,11 +56,11 @@ export default {
         reqValicode: function() {
             var userphone = this.inputphone;
 
-            if (
-                isNaN(userphone) ||
-                userphone.indexOf("1") != 0 ||
-                userphone.length != 11
-            ) {
+            //根据工信部2019年最新公布的手机号段严谨判断手机号的正则表达式
+            var reg = /^(?:(?:\+|00)86)?1(?:(?:3[\d])|(?:4[5-7|9])|(?:5[0-3|5-9])|(?:6[5-7])|(?:7[0-8])|(?:8[\d])|(?:9[1|8|9]))\d{8}$/;
+
+            if (!reg.test(userphone)) {
+                console.log("手机号不符合正则表达式");
                 this.$layer.open({
                     content: "请输入有效的手机号",
                     skin: "msg",
@@ -68,6 +68,19 @@ export default {
                 });
                 return false;
             }
+
+            // if (
+            //     isNaN(userphone) ||
+            //     userphone.indexOf("1") != 0 ||
+            //     userphone.length != 11
+            // ) {
+            //     this.$layer.open({
+            //         content: "请输入有效的手机号",
+            //         skin: "msg",
+            //         time: 2
+            //     });
+            //     return false;
+            // }
 
             this.startValicodeTimer();
 
